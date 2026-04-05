@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BlockAuth — Blockchain Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="logo">⬡ Decentralized Identity + Storage</div>
+    <div class="title">BLOCKAUTH</div>
+    <div class="subtitle">// on-chain auth · ipfs storage · cs project v2</div>
+  </div>
+
+  <!-- Wallet Bar -->
+  <div class="wallet-bar">
+    <div class="wallet-dot" id="walletDot"></div>
+    <span id="walletAddress">No wallet connected</span>
+    <button class="connect-btn" id="connectBtn" onclick="connectWallet()">CONNECT</button>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <!-- Auth panels -->
+    <div id="authPanels">
+      <div class="tabs">
+        <button class="tab active" id="tabRegister" onclick="switchTab('register')">Register</button>
+        <button class="tab" id="tabLogin" onclick="switchTab('login')">Login</button>
+      </div>
+
+      <!-- Register Panel -->
+      <div class="panel active" id="panelRegister">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" id="regUsername" placeholder="Choose a username" autocomplete="off"/>
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="regPassword" placeholder="Choose a password"/>
+        </div>
+        <button class="btn btn-register" id="btnRegister" onclick="register()">
+          <span class="btn-text">Register on Chain</span>
+          <div class="spinner"></div>
+        </button>
+        <div class="alert" id="registerAlert"></div>
+      </div>
+
+      <!-- Login Panel -->
+      <div class="panel" id="panelLogin">
+        <div class="field">
+          <label>Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password"/>
+        </div>
+        <button class="btn btn-login" id="btnLogin" onclick="login()">
+          <span class="btn-text">Authenticate</span>
+          <div class="spinner"></div>
+        </button>
+        <div class="alert" id="loginAlert"></div>
+      </div>
+    </div>
+
+    <!-- Welcome + IPFS Dashboard shown after login -->
+    <div id="welcomeScreen">
+      <div class="welcome-icon">🔓</div>
+      <div class="welcome-name" id="welcomeName"></div>
+      <div class="welcome-msg">// access granted — identity verified on-chain</div>
+
+      <!-- IPFS Storage Section (only visible after login) -->
+      <div class="ipfs-section">
+        <div class="ipfs-header">
+          <span class="ipfs-badge">IPFS</span>
+          <span class="ipfs-title">Decentralized File Storage</span>
+        </div>
+
+        <!-- Pinata Key Setup (user pastes their own key - free tier) -->
+        <div class="field" id="pinataKeyField">
+          <label>Pinata JWT Token <span class="label-note">— free at pinata.cloud</span></label>
+          <input type="password" id="pinataJWT" placeholder="Paste your Pinata JWT here..."/>
+          <button class="btn-small" onclick="saveKey()">Save Key</button>
+          <div class="key-note">⚠ key stored locally in your browser only, never sent anywhere else</div>
+        </div>
+
+        <!-- Upload area -->
+        <div class="upload-area" id="uploadArea" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <div class="upload-icon">📁</div>
+          <div class="upload-text">drag & drop a file here</div>
+          <div class="upload-sub">or</div>
+          <label class="file-label">
+            Browse Files
+            <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display:none"/>
+          </label>
+        </div>
+
+        <!-- Selected file preview -->
+        <div class="file-preview" id="filePreview" style="display:none">
+          <span class="file-icon">📄</span>
+          <span class="file-name" id="selectedFileName"></span>
+          <span class="file-size" id="selectedFileSize"></span>
+          <button class="clear-file" onclick="clearFile()">✕</button>
+        </div>
+
+        <button class="btn btn-upload" id="btnUpload" onclick="uploadToIPFS()">
+          <span class="btn-text">⬆ Upload to IPFS</span>
+          <div class="spinner"></div>
+        </button>
+        <div class="alert" id="uploadAlert"></div>
+
+        <!-- File list - files this wallet uploaded -->
+        <div class="files-list" id="filesList">
+          <div class="files-list-header">
+            <span>// your files</span>
+            <button class="refresh-btn" onclick="loadMyFiles()">↻ refresh</button>
+          </div>
+          <div id="filesContainer">
+            <div class="empty-files">no files yet — upload something!</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="logout-btn" onclick="logout()">DISCONNECT SESSION</button>
+    </div>
+
+  </div>
+
+  <div class="footer-note">metamask · sepolia testnet · ipfs via pinata</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
