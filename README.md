@@ -2,7 +2,6 @@
 
 A decentralized identity and file storage app built as a CS project. Users register and authenticate using a smart contract on the **Sepolia testnet**, then upload files to **IPFS via Pinata**.
 
-![BlockAuth Screenshot](https://i.imgur.com/placeholder.png)
 
 ---
 
