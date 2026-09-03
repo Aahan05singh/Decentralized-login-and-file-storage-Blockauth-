@@ -40,7 +40,7 @@ A decentralized identity and file storage app built as a CS project. Users regis
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/blockauth.git
+   git clone https://github.com/Aahan05singh/blockauth.git
    cd blockauth
    ```
 
